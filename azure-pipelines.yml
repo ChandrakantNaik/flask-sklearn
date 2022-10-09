@@ -65,7 +65,7 @@ stages:
     condition: succeeded()
     jobs:
     - deployment: DeploymentJob
-      pool: FlaskMlDeployAgentPool
+      pool: myAgentPool
       environment: $(environmentName)
       strategy:
         runOnce:
