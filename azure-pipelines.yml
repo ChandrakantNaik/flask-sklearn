@@ -6,7 +6,9 @@
 trigger:
 - main
 
-pool:
+pool: myAgentPool
+
+variables:
   vmImage: ubuntu-latest
 
 steps:
