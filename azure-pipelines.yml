@@ -11,7 +11,7 @@ pool: myAgentPool
 
 variables:
   # TODO: Replace the service connection name as used in the DevOps project settings
-  azureServiceConnectionId: "myserviceconn210628"
+  azureServiceConnectionId: "myserviceconn210990"
 
   # TODO: Specify the value of the existing Web App name
   webAppName: "flask-ml-sklearn"
@@ -72,7 +72,7 @@ stages:
           deploy:
             steps:
             - task: AzureWebApp@1
-              displayName: 'Deploy Azure Web App : flask-ml-app-services'
+              displayName: 'Deploy Azure Web App : flask-ml-sklearn'
               inputs:
                 azureSubscription: $(azureServiceConnectionId)
                 appName: $(webAppName)
