@@ -135,6 +135,55 @@ This project is submitted as part of Udacity - Data Engingeer Nanodegree program
 >
 
 ## Load Testing
+Note: Azure cloud Shell is not enough good to perform locust there, so I used my own WSL having Ubuntu 18.0.4 on windows to run Locust. Follow the link [here](https://www.ssl.com/how-to/enable-linux-subsystem-install-ubuntu-windows-10/)
+
+Now if you do a quick search in windows to see if newly installed Ubuntu. The output should match the below screen.
+
+![](images%20&%20screenshots/ubuntu.GIF)
+
+We have to prepare our Ubuntu app for our Flask application. We have to install some additional packages in our Ubuntu app to build the Flask application code. These commands are specific to our sample Flask application, you can extend them per your application requirements:
+```
+sudo apt-get update
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.7
+sudo apt-get install python3.7-venv
+sudo apt-get install python3-pip
+python3.7 --version
+pip --version 
+sudo apt-get install python3.7-distutils
+```
+
+Navigate to the project directory create and activate the virtual env using the below commands
+```
+python3.7 -m venv ~/.udacity-devops
+source ~/.udacity-devops/bin/activate
+```
+
+Verify if the installation and project setup is successfull by running the flask app. using below command
+```
+python3.7 app.py
+```
+
+The output should match the below screenshot
+
+![](images%20&%20screenshots/local-app-output.png)
+
+Let's get started with load tesing
+Install locust
+```
+pip install locust
+```
+
+Ensure the app is running
+
+Copy locustfile.py and run it using **locust** command. Open the browser on http://localhost:8089/ 
+![](images%20&%20screenshots/locust.GIF)
+
+You can then watch the load test:
+![](images%20&%20screenshots/locust-chart.GIF)
+
 ## Enhancements
 - Currently the predictions are observed via Azure Cloud Shell. The Azure web app can be further enhanced to dispaly the predictions in web page.
 
