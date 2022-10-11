@@ -1,3 +1,5 @@
+[![Python application test with Github Actions](https://github.com/ChandrakantNaik/flask-sklearn/actions/workflows/main.yml/badge.svg)](https://github.com/ChandrakantNaik/flask-sklearn/actions/workflows/main.yml)
+
 # Overview
 
 This project specifies how to perform continuous integration and continuous delivery for a python based machine learning application using the Flask web framework. The project consists of a pre-trained, sklearn model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on.
@@ -189,4 +191,4 @@ You can then watch the load test:
 
 ## Demo
 
-<TODO: Add link Screencast on YouTube>
+Demo of the project can be watched at this [link](https://youtu.be/aXIBXPKtP18)
