@@ -23,12 +23,13 @@ This project is submitted as part of Udacity - Data Engingeer Nanodegree program
   
   ![](./images%20%26%20screenshots/architecture-diagram.png)
 
-
-## How to run the project ?
+## Instructions
+## Deploying the application in Azur cloud Shell
   Git clone the project in Azure Cloud Shell
   ```
   git clone git@github.com:ChandrakantNaik/flask-sklearn.git
   ```
+  ![git-clone](images%20&%20screenshots/git-clone.GIF)
   
   Create the virtual venv and activate it
   ```
@@ -48,8 +49,14 @@ This project is submitted as part of Udacity - Data Engingeer Nanodegree program
   ```
   ![](./images%20%26%20screenshots/run-locally.GIF)
   
-  Make prediction using ./make_prediction.sh on another cloud shell. The output should match the below :
-  ![](./images%20%26%20screenshots/run-local-prediction.GIF)
+  To make a prediction, you have to open a separate tab or terminal window. In this new window, navigate to the main project directory and activate the virtual env and run the below command. 
+  ```
+  ./make_prediction.sh
+  ```
+  The output should match the below :
+  
+  ![](./images%20%26%20screenshots/run-prediction-locally.GIF)
+  
 
 ## Create an Azure Webapp and deploy it
 
@@ -58,49 +65,72 @@ This project is submitted as part of Udacity - Data Engingeer Nanodegree program
   az webapp up -n flask-ml-sklearn --resource-group Azuredevops --runtime "PYTHON:3.7"
   ```
   
+  The output of the cloud shell should match the below post successfull creation of web app
+
+  ![](images%20&%20screenshots/az-webapp-creation.GIF)
+  
   The newly created web app resource can be viewed in Azure portal as well. Screenshot for your reference
+
   ![](./images%20%26%20screenshots/az-webapp-in-azure.GIF)
 
-  The azure web app provides the website url, which can be used to access flask app
+  Verify the deployed application works by browsing to the deployed URL
+
   ![Viewing the deployed app in chrome](./images%20%26%20screenshots/azure-webapp-chrome.GIF)
 
-## Setup Azue Devops to automate the CI/CD Process via Azure pipeline.
-  - Log into the https://dev.azure.com/ in a separate browser tab using the same Azure account
-  - Before you create a new project, ensure to make your DevOps project allow public access by turning the visibility on in the Organization settings >> Policies section. Steps are outlined [here](https://docs.microsoft.com/en-us/azure/devops/organizations/public/make-project-public?view=azure-devops#enable-anonymous-access-to-projects-for-your-organization)
-  - Create a new DevOps project in the newly created DevOps org. Let's name the project as flask-sklearn, as shown below.
+## Azue Devops setup to automate the CI/CD Process via Azure pipeline.
+  Log into the https://dev.azure.com/ in a separate browser tab using the same Azure account
+
+  Before you create a new project, ensure to make your DevOps project allow public access by turning the visibility on in the Organization settings >> Policies section. Steps are outlined [here](https://docs.microsoft.com/en-us/azure/devops/organizations/public/make-project-public?view=azure-devops#enable-anonymous-access-to-projects-for-your-organization)
+  Create a new DevOps project in the newly created DevOps org. Let's name the project as flask-sklearn, as shown below.
+
   ![](./images%20%26%20screenshots/azure-devops-project.GIF)
-  - Under Project Settings create a new service connection to Azure Resource Manager, scoped to your subscription and resource group.
-  - Create a new Personal Access Token (PAT) that will be used instead of a password by the build agent (Linux VM) for authentication/authorization and ensure that it has a "Full access" scope
-  - Create an self-hosted Agent pool
-  - Create and configure a new Linux VM as an Azure DevOps Build Agent
-  - Prepare the agent for building the Flask application
-  - Go back to the DevOps project, select Pipeline and create a new one.
-  - Connect to the Github repo as the source code location
-  - Choose the **Existing Azure Pipelines YAML** file option
-  - Edit and Review the azure-pipelines-for-self-hosted-agent.yml file. 
-  - Running Azure App Service from Azure Pipelines automatic deployment
-    ![](./images%20%26%20screenshots/azure-pipeline-run.GIF)
+
+  Under Project Settings create a new service connection to Azure Resource Manager, scoped to your subscription and resource group.
+
+  Create a new Personal Access Token (PAT) that will be used instead of a password by the build agent (Linux VM) for authentication/authorization and ensure that it has a "Full access" scope
+
+  Create an self-hosted Agent pool
+
+  Create and configure a new Linux VM as an Azure DevOps Build Agent
+
+  Prepare the agent for building the Flask application
+
+  Go back to the DevOps project, select Pipeline and create a new one.
+
+  Connect to the Github repo as the source code location
+
+  Choose the **Existing Azure Pipelines YAML** file option
+
+  Edit and Review the azure-pipelines-for-self-hosted-agent.yml file. 
+
+  Running Azure App Service from Azure Pipelines automatic deployment
+
+  ![](./images%20%26%20screenshots/azure-pipeline-run.GIF)
   
-- Successful prediction from deployed flask app in Azure Cloud Shell.
+  To perform a successful prediction from deployed flask app run the below command in Azure Cloud Shell .
+  ```
+  ./make_predict_azure_app.sh
+  ```
   The output should look similar to this:
+
   ```bash
   (.udacity-devops) (base) odl_user [ ~/flask-sklearn ]$ ./make_predict_azure_app.sh
   Port: 443
   {"prediction":[20.869782939832444]}
   ```
 
-- Output of streamed log files from deployed application
+  Output of streamed log files from deployed application
   ```bash
   (.udacity-devops) (base) odl_user [ ~/flask-sklearn ]$ az webapp log tail -g azuredevops --name flask-ml-sklearn
-  2022-10-09T18:27:01  Welcome, you are now connected to log-streaming service.
+  2022-10-11T19:40:31  Welcome, you are now connected to log-streaming service.
 
   Starting Log Tail -n 10 of existing logs ----
 
   /home/LogFiles/__lastCheckTime.txt  (https://flask-ml-sklearn.scm.azurewebsites.net/api/vfs/LogFiles/__lastCheckTime.txt)
-  10/09/2022 14:28:19
+  10/11/2022 18:43:52
 
-  /home/LogFiles/kudu/trace/43a77e492c99-9202abbc-082a-404a-b0dd-32de46434146.txt  (https://flask-ml-sklearn.scm.azurewebsites.net/api/vfs/LogFiles/kudu/trace/43a77e492c99-9202abbc-082a-404a-b0dd-32de46434146.txt)
-  2022-10-09T14:24:19  Startup Request, url: /api/zipdeploy?isAsync=true&trackDeploymentProgress=true, method: POST, type: request, pid: 71,1,5, SCM_DO_BUILD_DURING_DEPLOYMENT: True, ScmType: None
+  /home/LogFiles/kudu/trace/00b8192c9f57-1e24b553-3b60-4635-8b0c-3cf0698cffda.txt  (https://flask-ml-sklearn.scm.azurewebsites.net/api/vfs/LogFiles/kudu/trace/00b8192c9f57-1e24b553-3b60-4635-8b0c-3cf0698cffda.txt)
+  2022-10-11T19:34:49  Startup Request, url: /api/deployments/11665516888779, method: PUT, type: request, pid: 77,1,4, SCM_DO_BUILD_DURING_DEPLOYMENT: True, ScmType: VSTSRM
   ```
 >
 
